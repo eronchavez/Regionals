@@ -17,11 +17,15 @@
     <h2>{{$product->company?->name}}</h2>
     <img src="{{ $product->image ? asset('public/images/' . $product->image) : asset('public/images/placeholder.jpg') }}" style="width: 80%">
     <p>{{$product->gtin}}</p>
+    <p>Rating: {{$product->reviews_avg_rating}}</p>
+    <p>Number Of Reviews: {{$product->reviews->count()}}</p>
     <p id="product-description"> {{$product->description}}</p>
     <p>Weight: {{$product->gross_weight}} {{$product->weight_unit}}</p>
     <p>Net Content Weight: {{$product->net_weight}} {{$product->weight_unit}}</p>
     <p>Category: {{$product->category?->name}}</p>
 
+
+    
     <script>
         let lang = 'en';
 
@@ -49,8 +53,38 @@
     </script>
 
     
-   
-    
+    @auth
+        <h2>Reviews: </h2>
+        <form action="{{ url('/review/' . $product->gtin) }}" method="POST">
+            @csrf
+
+            @if (session('success'))
+                <p style="color: green">{{session('success')}}</p>
+            @endif
+            <label for="review">Review: </label>
+            <textarea name="review" id="" cols="30" rows="10" maxlength="200"></textarea>
+
+            <label for="rating">Rating: </label>
+            <select name="rating" id="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">4</option>
+                <option value="5">5</option>
+            </select>
+          
+
+            <br>
+            <input type="submit">
+
+        </form>
+
+    @endauth
+        @foreach ($reviews as $review)
+            <h3>{{$review->user->name}}</h3>
+            <p>Rating: {{$review->rating}}</p>
+            <p>Review: {{$review->review}}</p>
+        @endforeach
 
 </body>
 </html>

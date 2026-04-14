@@ -54,59 +54,7 @@ class UserController extends Controller
         return view('users.edit',compact('user'));
     }
 
-
-    // public function update(Request $req)
-    // {   
-    //     $user = Auth::user();
-
-    //     $validated = $req->validate([
-    //         'name' => 'sometimes|nullable|string|',
-    //         'avatar' => 'sometimes|nullable|mimes:jpg,jpeg,png,svg,gif|max:2048',
-    //         'username' => [
-    //             'sometimes',
-    //             'nullable',
-    //             'min:6',
-    //             'alpha_num',
-    //             'regex:/[A-Za-z]/',
-    //             'regex:/[0-9]/',
-    //             'unique:users,username,' . $user->id,
-    //         ],
-    //         'password' => 'nullable|min:6|sometimes',
-    //     ]);
-
-    //     $imageName = NULL;
-
-    //     if($req->hasFile('avatar'))
-    //     {
-    //         $imageName = time() . '.' . $req->file('avatar')->extension();
-    //         $req->file('avatar')->move(public_path('avatars'), $imageName);
-    //         $req->merge(['avatar' => $imageName]);
-    //         $user->avatar = $imageName;
-    //     }
-
-    //     if($req->filled('password'))
-    //     {
-    //         $user->password = $validated['password'];
-    //     }
-
-    //     if($req->filled('name'))
-    //     {
-    //         $user->name = $validated['name'];
-    //     }
-
-    //     if($req->filled('username'))
-    //     {
-    //         $user->username = $validated['username'];
-    //     }
-
-    //     $user->save();
-
-    //     Auth::login($user);
-    //     $req->session()->regenerate();
-
-    //     return redirect('/')->with('success','Updated');
-    // }
-
+    
     public function update(Request $req)
     {
         $user = Auth::user();

@@ -4,9 +4,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
-use App\Models\Company;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,9 +19,11 @@ Route::post('/userLogin',[UserController::class, 'login']);
 Route::middleware('auth401')->group(function(){
 
     Route::post('/userLogout', [UserController::class, 'logout']);
-    Route::get('/me', [UserController::class, 'edit']);
+    Route::get('/profile', [UserController::class, 'edit']);
     Route::put('/profile/update', [UserController::class, 'update']);
     Route::put('/profile/removeAvatar', [UserController::class, 'removeAvatar']);
+
+    Route::post('/review/{product:gtin}', [ReviewController::class, 'store']);
 
 });
 

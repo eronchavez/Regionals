@@ -56,7 +56,10 @@ class ProductController extends Controller
         public function getProductPublic(Product $product)
         {
             if($product->hidden) abort(404);
-            return view('publicProducts.product',compact('product'));
+
+            $reviews = $product->reviews()->with('user')->get();
+            $product->load(['reviews.user'])->loadAvg('reviews','rating')->loadCount('reviews');
+            return view('publicProducts.product',compact('product', 'reviews'));
         }
 
 
@@ -228,7 +231,7 @@ class ProductController extends Controller
         $validated = $req->validate([
             'image' => 'required|image|max:2048'
         ]);
-
+        
         $file = $validated['image'];
 
         $imageName = time() . '.' . $file->extension();
@@ -238,7 +241,7 @@ class ProductController extends Controller
 
         return back()->with('success', 'Image successfully updated');
     }
-    
+
     public function hideProduct(Product $product)
     {      
         $product->hidden = 1;
