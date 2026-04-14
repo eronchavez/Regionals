@@ -127,6 +127,12 @@ class CompanyController extends Controller
     {   
         $company->active = 0;
         $company->products()->update(['hidden' => 1]);
+        // foreach($company->products as $product)
+        //     {
+        //         $product->hidden = 1;
+        //         $product->save();
+        //     }
+        // $company->save();
         $company->save();
 
         return redirect('/companies')->with('success', 'Company deactivated!');

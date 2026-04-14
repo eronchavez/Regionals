@@ -23,7 +23,7 @@
     @endphp
 
     @if($allValid)
-         <img src="{{asset('images/green-tick-2.png')}}" alt="All Valid" id="checkmark" width="100">
+         <img src="{{asset('public/images/green-tick-2.png')}}" alt="All Valid" id="checkmark" width="100">
         <p>All valid</p>
     @endif
 
