@@ -10,8 +10,11 @@
             <form action="{{ url('/products/' . $product->gtin . '/changeImage') }} " enctype="multipart/form-data" method="POST">
                 @csrf
                 @method('PUT')
+                
+                <div id="preview">
 
-                <input type="file" name="image">
+                </div>
+                <input type="file" name="image" id="image">
                 <input type="submit" value="Change Image" name="changeImage">
 
             </form>
@@ -59,4 +62,43 @@
         <p>{{$product->gross_weight}}</p>
         <p>{{$product->net_weight}}</p>
         <p>{{$product->weight_unit}}</p>
+
+
+            
+    <script>
+        
+        document.getElementById('image').addEventListener('change' , (e) => {
+            preview = document.getElementById('preview');
+
+            preview.innerHTML = '';
+
+            const file = e.target.files[0];
+
+            if(file){
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            };
+
+            const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.textContent = 'cancel';
+                cancelBtn.addEventListener('click', () => {
+                    document.getElementById('image').value = '';
+                    preview.innerHTML = '';
+            });
+
+            preview.appendChild(cancelBtn);
+
+           
+
+            
+        });
+
+    </script>
 </x-layout>

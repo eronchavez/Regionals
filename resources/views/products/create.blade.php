@@ -9,7 +9,11 @@
 
        <div>
             <label for="image">Image: </label>
-            <input type="file" name="image">
+            
+           <div id="preview">
+
+            </div>
+            <input type="file" name="image" id="image">
         </div>
 
         <div>
@@ -112,4 +116,39 @@
 
         <input type="submit" value="Create Product">
     </form>
+
+    <script>
+
+        document.getElementById('image').addEventListener('change', (e) => {
+              preview = document.getElementById('preview');
+              
+              preview.innerHTML = '';
+
+              const file = e.target.files[0];
+
+              if(file)
+              { 
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+
+              };
+
+              const cancelBtn = document.createElement('button');
+              cancelBtn.type = 'button';
+              cancelBtn.textContent = 'cancel';
+              cancelBtn.addEventListener('click', () => {
+                document.getElementById('image').value = '';
+                preview.innerHTML = '';
+              });
+
+              preview.appendChild(cancelBtn);
+        });
+
+    </script>
 </x-layout>

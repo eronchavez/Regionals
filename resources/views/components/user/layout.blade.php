@@ -20,7 +20,7 @@
                 @auth
                     <li><a href="{{ url('/') }}">Products</a></li>
                     {{-- To DO: Display Avatar Image and Name --}}
-                    <li><a href="{{ url('/me') }}"> <img src="{{ Auth::user()->avatar ? asset('public/avatars/' . Auth::user()->avatar) : asset('public/avatars/placeholder.jpg')}}" width="100" alt="Image">{{ Auth::user()->name}}</a></li>
+                    <li><a href="{{ url('/profile') }}"> <img src="{{ Auth::user()->avatar ? asset('public/avatars/' . Auth::user()->avatar) : asset('public/avatars/placeholder.jpg')}}" width="100" alt="Image">{{ Auth::user()->name}}</a></li>
                     <li><a href="#" onclick= "event.preventDefault();document.getElementById('userLogout').submit()">Logout</a></li>
                 @endauth
 

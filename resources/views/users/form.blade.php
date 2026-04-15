@@ -10,7 +10,10 @@
         @enderror
 
         <label for="avater">Avatar: </label>
-        <input type="file" name="avatar">
+        <div id="preview">
+
+        </div>
+        <input type="file" name="avatar" id="image">
           @error('avatar')
             <p>{{$message}}</p>
         @enderror
@@ -72,6 +75,41 @@
             }
             
         }
+
+        document.getElementById('image').addEventListener('change', (e) => {
+            preview = document.getElementById('preview');
+
+            preview.innerHTML = '';
+
+            const file = e.target.files[0];
+
+            if(file)
+                {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img  = document.createElement('img');
+                        img.src = e.target.result;
+                        preview.appendChild(img); 
+                    }
+                    
+                        reader.readAsDataURL(file);                
+                    
+                };
+
+            const cancelBtn = document.createElement('button');
+            cancelBtn.type = 'button';
+            cancelBtn.textContent = 'cancel';
+            cancelBtn.addEventListener('click', () => {
+                document.getElementById('image').value = '';
+                preview.innerHTML = '';
+            });
+
+
+            preview.appendChild(cancelBtn);
+
+
+
+        });
 
     </script>
 
